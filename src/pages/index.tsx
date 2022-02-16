@@ -1,7 +1,35 @@
+import { FormEvent, useState } from 'react';
+import { SearchResults } from '../components/SearchResults';
+
 export default function Home(): JSX.Element {
+  const [search, setSearch] = useState('');
+  const [results, setResults] = useState([]);
+
+  const handleSearch = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+
+    if (!search.trim()) return;
+
+    const response = await fetch(`http://localhost:3333/products?q=${search}`);
+    const data = await response.json();
+
+    setResults(data);
+  };
+
   return (
     <>
-      <h1>olá Mundo</h1>
+      <h1>search</h1>
+
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        <button type="submit">Buscar</button>
+      </form>
+
+      <SearchResults results={results} />
     </>
   );
 }
