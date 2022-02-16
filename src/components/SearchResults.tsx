@@ -12,7 +12,7 @@ export function SearchResults({ results }: SearchResultsProps): JSX.Element {
   return (
     <div>
       {results.map(product => (
-        <ProductItem product={product} />
+        <ProductItem key={product.id} product={product} />
       ))}
     </div>
   );
