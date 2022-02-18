@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import { SearchResults } from '../components/SearchResults';
 
 export default function Home(): JSX.Element {
@@ -16,6 +16,10 @@ export default function Home(): JSX.Element {
     setResults(data);
   };
 
+  const addToWhishList = useCallback(async (id: number): Promise<void> => {
+    console.log(id);
+  }, []);
+
   return (
     <>
       <h1>search</h1>
@@ -29,7 +33,7 @@ export default function Home(): JSX.Element {
         <button type="submit">Buscar</button>
       </form>
 
-      <SearchResults results={results} />
+      <SearchResults onAddToWishList={addToWhishList} results={results} />
     </>
   );
 }

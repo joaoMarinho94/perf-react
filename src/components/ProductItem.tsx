@@ -2,16 +2,23 @@ import { memo } from 'react';
 
 interface ProductItemProps {
   product: {
-    id: string;
+    id: number;
     price: number;
     title: string;
   };
+  onAddToWishList: (id: number) => Promise<void>;
 }
 
-function ProductItemComponent({ product }: ProductItemProps): JSX.Element {
+function ProductItemComponent({
+  product,
+  onAddToWishList,
+}: ProductItemProps): JSX.Element {
   return (
     <div>
       {product.title} - <strong>{product.price}</strong>
+      <button type="button" onClick={() => onAddToWishList(product.id)}>
+        Add to wishList
+      </button>
     </div>
   );
 }
